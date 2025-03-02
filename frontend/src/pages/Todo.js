@@ -1,4 +1,3 @@
-// src/pages/Todo.js
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 
@@ -8,6 +7,7 @@ const Todo = () => {
     "Configure CI/CD pipeline",
     "Implement user authentication",
   ]);
+  const [completedTodos, setCompletedTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
 
   const handleSubmit = (e) => {
@@ -16,26 +16,29 @@ const Todo = () => {
     setNewTodo("");
   };
 
-  const handleRemoveTodo = (index) => {
-    const newTodos = todos.filter((_, i) => i !== index);
-    setTodos(newTodos);
+  const handleToggleComplete = (index) => {
+    if (completedTodos.includes(index)) {
+      setCompletedTodos(completedTodos.filter((i) => i !== index)); // Geri al
+    } else {
+      setCompletedTodos([...completedTodos, index]); // Tamamlandı olarak işaretle
+    }
   };
 
   return (
     <div>
       <Navbar />
-      <div className="container">
+      <div className="container2">
         <h1>To-Do List</h1>
         <div id="todoContainer">
           <ul id="todoList">
             {todos.map((todo, index) => (
-              <li key={index}>
+              <li key={index} className={completedTodos.includes(index) ? "completed" : ""}>
                 {todo}{" "}
                 <span
-                  className="remove-task"
-                  onClick={() => handleRemoveTodo(index)}
+                  className={`task-toggle ${completedTodos.includes(index) ? "completed-btn" : ""}`}
+                  onClick={() => handleToggleComplete(index)}
                 >
-                  &times;
+                  {completedTodos.includes(index) ? "✔" : "✖"}
                 </span>
               </li>
             ))}
@@ -44,13 +47,13 @@ const Todo = () => {
             <input
               type="text"
               id="todoInput"
-              placeholder="Yeni görev ekle..."
+              placeholder="Add new todo"
               value={newTodo}
               onChange={(e) => setNewTodo(e.target.value)}
               required
             />
-            <button type="submit" className="btn">
-              Ekle
+            <button type="submit" className="btnpipe">
+              Add
             </button>
           </form>
         </div>

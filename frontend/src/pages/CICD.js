@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 
 const CICD = () => {
-  const [buildProgress, setBuildProgress] = useState(0);
-  const [testProgress, setTestProgress] = useState(0);
-  const [deployProgress, setDeployProgress] = useState(0);
+  const [buildProgress, setBuildProgress] = useState(20);
+  const [testProgress, setTestProgress] = useState(30);
+  const [deployProgress, setDeployProgress] = useState(65);
   const [pipelineResult, setPipelineResult] = useState("");
 
   const triggerPipeline = () => {
@@ -38,7 +38,7 @@ const CICD = () => {
   return (
     <div>
       <Navbar />
-      <div className="container fade-in">
+      <div className="container2">
         <h1>CI/CD Pipeline</h1>
         <div id="pipeline">
           <div className="pipeline-stage" id="stage-build">
@@ -46,7 +46,7 @@ const CICD = () => {
             <div className="progress-bar">
               <div
                 className="progress"
-                style={{ width: `${buildProgress}%` }}
+                style={{ width: `${buildProgress}%`, backgroundColor: "#2563eb" }}
               ></div>
             </div>
             <p>
@@ -58,7 +58,7 @@ const CICD = () => {
             <div className="progress-bar">
               <div
                 className="progress"
-                style={{ width: `${testProgress}%` }}
+                style={{ width: `${testProgress}%`, backgroundColor: "#36A2EB" }}
               ></div>
             </div>
             <p>
@@ -70,7 +70,7 @@ const CICD = () => {
             <div className="progress-bar">
               <div
                 className="progress"
-                style={{ width: `${deployProgress}%` }}
+                style={{ width: `${deployProgress}%`, backgroundColor: "#1F76D4" }}
               ></div>
             </div>
             <p>
@@ -78,8 +78,8 @@ const CICD = () => {
             </p>
           </div>
         </div>
-        <button id="triggerPipeline" className="btn" onClick={triggerPipeline}>
-          Pipeline'ı Çalıştır
+        <button id="triggerPipeline" className="btnpipe" onClick={triggerPipeline}>
+          Run Pipeline
         </button>
         <div id="pipelineResult">{pipelineResult}</div>
       </div>

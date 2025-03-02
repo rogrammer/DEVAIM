@@ -1,173 +1,60 @@
-/* Genel stil */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  margin: 1%;
   padding: 0;
-  background: #f4f4f4;
-}
-
-.navbar {
-  background: #333;
-  overflow: hidden;
-}
-
-.nav-btn {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-
-.nav-btn:hover,
-.nav-btn.active {
-  background: #575757;
-}
-
-.container {
-  padding: 20px;
-}
-
-/* Buton stili */
-.btn {
-  padding: 10px 15px;
-  background: #333;
-  color: #fff;
-  border: none;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background: #575757;
-}
-
-/* Members sayfası liste stili */
-#userList {
-  list-style-type: none;
-  padding: 0;
-}
-
-/* Tasks sayfası tabloları */
-.tasks-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.task-table {
-  background: #fff;
-  padding: 15px;
-  margin: 10px;
-  flex: 1;
-  min-width: 280px;
-  border: 1px solid #ccc;
-}
-
-.task-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.task-table th,
-.task-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-/* Merge Request sayfası stili */
-.merge-request-item {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-.merge-request-item h3 {
-  margin-top: 0;
-}
-
-/* To-Do List sayfası stili */
-#todoContainer {
-  background: #fff;
-  padding: 15px;
-  border: 1px solid #ccc;
-}
-#todoList {
-  list-style: none;
-  padding: 0;
-}
-#todoList li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  background: #eef2f7;
+  color: #333;
   position: relative;
-}
-.remove-task {
-  color: #ff0000;
-  font-weight: bold;
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-}
-
-/* Monitoring sayfası stili */
-#systemMetrics,
-#logs,
-#deploySection,
-#monitorChartContainer {
-  background: #fff;
-  padding: 15px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-}
-
-/* CI/CD Pipeline sayfası stili */
-#pipeline {
-  margin: 20px 0;
-}
-
-.pipeline-stage {
-  margin-bottom: 20px;
-}
-
-.progress-bar {
-  background: #ddd;
-  border-radius: 5px;
   overflow: hidden;
-  height: 20px;
-  margin-bottom: 5px;
+  overflow-y: auto;
+  font-size: large;
 }
 
-.progress {
-  height: 100%;
-  background: #36a2eb;
-  width: 0;
-  transition: width 1s;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Home.css */
+/* Home Page Style */
 .home-page {
   position: relative;
-  overflow: hidden;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #bbedff;
 }
 
+/* Logo */
+.main-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  z-index: 2;
+  position: relative;
+  animation: pop-in 1s ease-out;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Little Logolar */
 .background-logos {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .background-logo {
@@ -190,49 +77,515 @@ body {
   }
 }
 
-.container {
+/* Navbar */
+.navbar {
+  background: rgba(30, 58, 138, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin: 10px;
+}
+
+.nav-btn {
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+  border-radius: 8px;
   position: relative;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  width: max-content;
+  min-width: 120px;
 }
 
-.main-logo {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 0;
+  height: 3px;
+  background: #5f7bd8;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-btn:hover::after, .nav-btn.active::after {
+  width: 100%;
+  left: 0;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Butons */
+.btn, .btnnow {
+  margin: 0.5%;
+  padding: 12px 20px;
+  background: rgba(30, 58, 138, 0.9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.act-btn {
+  margin: 0.5%;
+  padding: 12px 20px;
+  background: #192340;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btnsave, .btned, .btnfut {
+  margin: 0.5%;
+  padding: 12px 20px;
+  background: #109624;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btndel, .btncls, .btnprev {
+  margin: 0.5%;
+  padding: 12px 20px;
+  background: #eb2525;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btnpipe {
+  margin: 0.5%;
+  padding: 12px 20px;
+  background: rgba(30, 58, 138, 0.9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn:hover, .btnnow:hover, .act-btn:hover {
+  background: #3b62e3;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Activity page and Graphs */
+#taskDetailsContainer {
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
-  animation: pop-in 1s ease-out;
 }
 
-@keyframes pop-in {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.task-sidebar {
+  width: 30%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.animated-text {
-  animation: fade-in 1.5s ease-out;
+.task-status p {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.task-chart {
+  width: 65%;
+}
+#tasksContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-body.page-loaded .animated-text {
-  animation: fade-in 1.5s ease-out;
+.task-btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: #36A2EB;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-btn:hover {
+  background-color: #1F76D4;
+}
+
+.task-table {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-height: 500px;
+  overflow-y: auto;
+  width: 95%;
+  border-collapse: collapse;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.task-table table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.task-table th,
+.task-table td {
+  padding: 10px;
+  border-bottom: 2px solid #10182e;
+  border-right: 2px solid #10182e;
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  white-space: normal; 
+  max-width: 200px;
+}
+
+.task-table th {
+  background: #10182e;
+  color: white;
+  padding: 12px;
+  border-bottom: 2px solid white;
+  border-left: 2px solid #10182e;
+  border-right: 2px solid white;
+}
+
+.task-table th:last-child {
+  border-right: none;
+}
+
+.task-table td:last-child,
+.task-table th:last-child {
+  border-right: none;
+}
+
+.task-table tr:hover {
+  background: #f0f5ff;
+}
+
+/* Input */
+input, textarea {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  transition: 0.3s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input:focus, textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+}
+
+/* CI/CD Progress Bar */
+.progress-bar {
+  background: #e0e7ff;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 20%;
+  width: 20%;
+}
+
+.progress {
+  height: 100%;
+  background: #2563eb;
+  transition: width 1s ease-in-out;
+  border-radius: 10px;
+}
+
+.container2 {
+  width: 80%; 
+  max-width: 800px; 
+  margin: 50px auto; 
+  padding: 30px; 
+  background-color: #fff; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  text-align: left; 
+  border: 2px solid #2563eb; 
+}
+ h1, h2, p {
+ text-align: center; 
+}
+
+.container2 h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+
+/* Modal for Adding a New User */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content input {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  margin-top: 20px;
+}
+
+/* Close button inside modal */
+.close-btn {
+  position: relative;
+  left: 50%;
+  padding: 10px;
+  background-color: #eb2525;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.close-btn2{
+  position: relative;
+  left: 10%;
+  padding: 10px;
+  background-color: #eb2525;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+}
+.close-btn:hover {
+  background-color: #dc5050;
+}
+
+/* Todo Page Styles */
+.todo-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+#todoContainer li {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.todo-heading {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #1e3a8a;  /* Match the navbar color */
+}
+
+/* Todo list styles */
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-item {
+  background-color: #f9fafb;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s;
+}
+
+.todo-item:hover {
+  background-color: #e0e7ff;  /* Light hover effect */
+}
+
+/* Remove task button */
+.remove-task {
+  color: #eb2525;  /* Navy blue (lacivert) color */
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.remove-task:hover {
+  color: #005b99;  /* Lighter navy blue on hover */
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-toggle {
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #eb2525;
+}
+
+.task-toggle:hover {
+  opacity: 0.7;
+}
+
+.completed-btn {
+  color: white;
+  background-color: green;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+/* Todo Form styles */
+.todo-form {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.todo-input {
+  width: 80%;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  transition: 0.3s;
+}
+
+.todo-input:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+}
+
+/* Progress bar styling */
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e7ff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #2563eb;
+  transition: width 1s ease-in-out;
+  border-radius: 10px;
+}
+
+/* Status label */
+.status-label {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Styling for pipeline stages */
+#pipeline {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  flex-wrap: wrap; 
+  align-items: stretch; 
+  margin-top: 30px;
+}
+
+.pipeline-stage {
+  flex: 1;
+  min-width: 250px; 
+  max-width: 300px; 
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+
+#pipelineResult {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+}
+
+/* Styling the custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f5ff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1e3a8a;
+  border-radius: 10px;
+  border: 2px solid #f0f5ff;
 }

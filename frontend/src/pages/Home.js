@@ -32,9 +32,9 @@ const Home = () => {
           ))}
         </div>
         <div className="container">
-          <h1 className="animated-text">DevOps Projesi Ana Sayfası</h1>
+          <h1 className="animated-text">DevOps Project</h1>
           <p className="animated-text">
-            Menüdeki butonlara tıklayarak diğer sayfalara ulaşabilirsiniz.
+          You can access other pages by clicking on the buttons in the menu.            
           </p>
           <img
             src={process.env.PUBLIC_URL + "/logo.webp"}

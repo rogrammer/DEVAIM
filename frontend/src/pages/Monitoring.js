@@ -104,10 +104,10 @@ const Monitoring = () => {
   return (
     <div>
       <Navbar />
-      <div className="container">
+      <div className="container2">
         <h1>Monitoring</h1>
         <div id="systemMetrics">
-          <h2>Sistem Kaynakları</h2>
+          <h2>System Sources</h2>
           <p>
             Memory Alloc: <span id="memoryAlloc">{memoryAlloc}</span>
           </p>
