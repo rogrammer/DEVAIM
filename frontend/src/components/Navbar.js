@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <Link to="/" className={`nav-btn ${location.pathname === "/" ? "active" : ""}`}>
-        Ana Sayfa
+        Home
       </Link>
       <Link to="/members" className={`nav-btn ${location.pathname === "/members" ? "active" : ""}`}>
         Members
@@ -20,7 +20,7 @@ const Navbar = () => {
         Tasks
       </Link>
       <Link to="/merge-request" className={`nav-btn ${location.pathname === "/merge-request" ? "active" : ""}`}>
-        Merge Requests
+        Pull Requests
       </Link>
       <Link to="/todo" className={`nav-btn ${location.pathname === "/todo" ? "active" : ""}`}>
         To-Do List
