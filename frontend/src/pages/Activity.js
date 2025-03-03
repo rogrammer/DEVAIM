@@ -97,7 +97,7 @@ const Activity = () => {
         <a href="/members" className="nav-btn">Members</a>
         <a href="/activity" className="nav-btn active">Activity</a>
         <a href="/tasks" className="nav-btn">Tasks</a>
-        <a href="/merge-request" className="nav-btn">Merge Requests</a>
+        <a href="/merge-request" className="nav-btn">Pull Requests</a>
         <a href="/todo" className="nav-btn">To-Do List</a>
         <a href="/monitoring" className="nav-btn">Monitoring</a>
         <a href="/cicd" className="nav-btn">CI/CD</a>
