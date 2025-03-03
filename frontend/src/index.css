@@ -589,3 +589,16 @@ input:focus, textarea:focus {
   border-radius: 10px;
   border: 2px solid #f0f5ff;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column; 
+    gap: 10px;
+  }
+
+  .nav-btn {
+    font-size: 14px; 
+    padding: 8px 15px; 
+  }
+}
