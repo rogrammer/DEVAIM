@@ -9,6 +9,7 @@ import MergeRequest from "./pages/MergeRequest";
 import Todo from "./pages/Todo";
 import Monitoring from "./pages/Monitoring";
 import CICD from "./pages/CICD";
+import Navbar from "./components/Navbar";
 
 function App() {
   document.addEventListener("DOMContentLoaded", function () {
@@ -171,16 +172,19 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/members" element={<Members />} />
-        <Route path="/activity" element={<Activity />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/merge-request" element={<MergeRequest />} />
-        <Route path="/todo" element={<Todo />} />
-        <Route path="/monitoring" element={<Monitoring />} />
-        <Route path="/cicd" element={<CICD />} />
-      </Routes>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/members" element={<Members />} />
+          <Route path="/activity" element={<Activity />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/merge-request" element={<MergeRequest />} />
+          <Route path="/todo" element={<Todo />} />
+          <Route path="/monitoring" element={<Monitoring />} />
+          <Route path="/cicd" element={<CICD />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

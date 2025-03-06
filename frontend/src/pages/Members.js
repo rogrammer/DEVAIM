@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 
 const Members = () => {
   const [users, setUsers] = useState([
@@ -70,7 +69,6 @@ const Members = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="container">
         <h1>Members</h1>
         <h2>Registered Users</h2>
@@ -148,7 +146,8 @@ const Members = () => {
                 {editingUser ? "Save Changes" : "Add"}
               </button>
               <button
-                type="button" className="btncls"
+                type="button"
+                className="btncls"
                 onClick={() => setShowModal(false)}
               >
                 Close

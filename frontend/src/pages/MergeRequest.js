@@ -1,139 +1,181 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
+import "../styles/MergeRequest.css";
 
 const MergeRequest = () => {
-  const [mergeRequests, setMergeRequests] = useState([
-    {
-      title: "Feature: Update README",
-      source: "feature/readme-update",
-      target: "main",
-      description: "Updated the project documentation and added examples.",
-    },
-    {
-      title: "Bugfix: Fix login issue",
-      source: "bugfix/login",
-      target: "main",
-      description: "Fixed an issue causing login failure on mobile devices.",
-    },
-  ]);
+  const [issues, setIssues] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedRepo, setSelectedRepo] = useState("bcicen/ctop"); // Varsayılan repo
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const [newMergeRequest, setNewMergeRequest] = useState({
-    title: "",
-    source: "",
-    target: "",
-    description: "",
-  });
+  const GITHUB_TOKEN = process.env.REACT_APP_GIT_TOKEN; // Token'ını buraya yaz
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Mevcut projeler (dropdown seçenekleri)
+  const repositories = [
+    { name: "ctop", fullName: "bcicen/ctop" },
+    { name: "img", fullName: "genuinetools/img" },
+  ];
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setNewMergeRequest({ ...newMergeRequest, [id]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setMergeRequests([...mergeRequests, newMergeRequest]);
-    setNewMergeRequest({ title: "", source: "", target: "", description: "" });
-    setIsModalOpen(false); // Close the modal after submit
-  };
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  // Add event listener for Escape key to close the modal
+  // Seçilen repoya göre issue'ları çekme
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeModal();
+    const fetchIssues = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/${selectedRepo}/issues?state=all&per_page=100`,
+          {
+            headers: {
+              Accept: "application/vnd.github+json",
+              Authorization: `token ${GITHUB_TOKEN}`,
+            },
+          }
+        );
+
+        if (!response.ok)
+          throw new Error("API isteği başarısız: " + response.status);
+        const data = await response.json();
+        setIssues(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
       }
     };
+    fetchIssues();
+  }, [selectedRepo]); // selectedRepo değiştiğinde yeniden çalışır
 
-    if (isModalOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
+  const openIssues = issues.filter((issue) => issue.state === "open");
+  const closedIssues = issues.filter((issue) => issue.state === "closed");
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isModalOpen]);
+  // Dropdown'ı açma/kapama
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  // Repo seçimi
+  const handleRepoSelect = (repo) => {
+    setSelectedRepo(repo);
+    setIsDropdownOpen(false); // Seçim yapıldığında dropdown kapanır
+  };
 
   return (
-    <div>
-      <Navbar />
-      <div className="container">
-        <h1>Merge Requests</h1>
-        <button className="btn" onClick={openModal}>Create Merge Request</button>
-
-        <div id="mergeList">
-          {mergeRequests.map((mr, index) => (
-            <div className="task-table" key={index}>
-              <h3>{mr.title}</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Source Branch</th>
-                    <th>Target Branch</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{mr.source}</td>
-                    <td>{mr.target}</td>
-                    <td>{mr.description}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <button className="btn merge-btn">Merge</button>
-            </div>
-          ))}
-        </div>
-
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content">
-              <h2>Create Merge Request
-                <button className="close-btn2" onClick={closeModal}>X</button>
-              </h2>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  id="title"
-                  placeholder="Title"
-                  value={newMergeRequest.title}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="text"
-                  id="source"
-                  placeholder="Source Branch"
-                  value={newMergeRequest.source}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="text"
-                  id="target"
-                  placeholder="Target Branch"
-                  value={newMergeRequest.target}
-                  onChange={handleInputChange}
-                  required
-                />
-                <textarea
-                  id="description"
-                  placeholder="Description"
-                  value={newMergeRequest.description}
-                  onChange={handleInputChange}
-                  required
-                />
-                <button type="submit" className="btn">Create Merge Request</button>
-              </form>
-            </div>
-          </div>
+    <div className="merge-request-container">
+      <div className="repo-selector">
+        <h1 className="merge-request-title" onClick={toggleDropdown}>
+          {repositories.find((repo) => repo.fullName === selectedRepo)?.name}{" "}
+          GitHub Issues
+          <span className="dropdown-arrow">{isDropdownOpen ? "▲" : "▼"}</span>
+        </h1>
+        {isDropdownOpen && (
+          <ul className="dropdown-menu">
+            {repositories.map((repo) => (
+              <li
+                key={repo.fullName}
+                className="dropdown-item"
+                onClick={() => handleRepoSelect(repo.fullName)}
+              >
+                {repo.name}
+              </li>
+            ))}
+          </ul>
         )}
       </div>
+
+      {loading && <p className="merge-request-loading">Yükleniyor...</p>}
+      {error && <p className="merge-request-error">{error}</p>}
+
+      <section className="issues-section">
+        <h2 className="issues-section-title">
+          Açık Issues ({openIssues.length})
+        </h2>
+        {openIssues.length > 0 ? (
+          <div className="issues-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Başlık</th>
+                  <th>Durum</th>
+                  <th>Oluşturulma Tarihi</th>
+                  <th>Açıklama</th>
+                </tr>
+              </thead>
+              <tbody>
+                {openIssues.map((issue) => (
+                  <tr key={issue.id}>
+                    <td>
+                      <a
+                        href={issue.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {issue.title}
+                      </a>
+                    </td>
+                    <td className="status-cell">
+                      <span className="status-open-dot"></span>
+                      {issue.state}
+                    </td>
+                    <td>{new Date(issue.created_at).toLocaleDateString()}</td>
+                    <td>
+                      {issue.body
+                        ? issue.body.substring(0, 100) + "..."
+                        : "Açıklama yok"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="no-issues">Henüz açık issue yok.</p>
+        )}
+      </section>
+
+      <section className="issues-section">
+        <h2 className="issues-section-title">
+          Kapalı Issues ({closedIssues.length})
+        </h2>
+        {closedIssues.length > 0 ? (
+          <div className="issues-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Başlık</th>
+                  <th>Durum</th>
+                  <th>Kapanma Tarihi</th>
+                  <th>Açıklama</th>
+                </tr>
+              </thead>
+              <tbody>
+                {closedIssues.map((issue) => (
+                  <tr key={issue.id}>
+                    <td>
+                      <a
+                        href={issue.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {issue.title}
+                      </a>
+                    </td>
+                    <td className="status-cell">
+                      <span className="status-closed-dot"></span>
+                      {issue.state}
+                    </td>
+                    <td>{new Date(issue.closed_at).toLocaleDateString()}</td>
+                    <td>
+                      {issue.body
+                        ? issue.body.substring(0, 100) + "..."
+                        : "Açıklama yok"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="no-issues">Henüz kapalı issue yok.</p>
+        )}
+      </section>
     </div>
   );
 };

@@ -1,19 +1,20 @@
-import React, { useState, useRef, useEffect } from "react"; // Removed 'useMemo'
+import React, { useState, useRef, useEffect } from "react";
 import { Chart, registerables } from "chart.js";
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "../styles/ActivityModern.css"; // Import the new CSS file
 
 Chart.register(...registerables);
 
 const Activity = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskStatus, setTaskStatus] = useState(null);
-  const [tasks, setTasks] = useState(() => {
-    return Array.from({ length: 10 }, (_, i) => ({
+  const [tasks, setTasks] = useState(() =>
+    Array.from({ length: 10 }, (_, i) => ({
       name: `Task ${i + 1}`,
       branches: [`main`, `feature-${i + 1}`],
-      progress: Math.floor(Math.random() * 101), // Random progress between 0 and 100
-    }));
-  });
+      progress: Math.floor(Math.random() * 101),
+    }))
+  );
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -26,6 +27,7 @@ const Activity = () => {
     setTaskStatus({
       status: isCompleted ? "Completed" : "In Progress",
       progress: task.progress,
+      branches: task.branches, // Ensure branches are passed correctly
     });
 
     const ctx = chartRef.current.getContext("2d");
@@ -37,13 +39,13 @@ const Activity = () => {
     chartInstance.current = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["Completed", "In Progress"],
+        labels: ["Completed", "Remaining"],
         datasets: [
           {
             label: "Task Progress",
-            data: [isCompleted ? 100 : task.progress, isCompleted ? 0 : 100 - task.progress],
-            backgroundColor: ["#36A2EB", "#FF6384"],
-            borderColor: ["#36A2EB", "#FF6384"],
+            data: [task.progress, 100 - task.progress],
+            backgroundColor: ["#34D399", "#F87171"],
+            borderColor: ["#34D399", "#F87171"],
             borderWidth: 1,
           },
         ],
@@ -51,10 +53,11 @@ const Activity = () => {
       options: {
         responsive: true,
         scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-          },
+          y: { beginAtZero: true, max: 100 },
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true },
         },
       },
     });
@@ -70,58 +73,41 @@ const Activity = () => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeModal();
-      }
+      if (event.key === "Escape") closeModal();
     };
-
-    if (selectedTask) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    if (selectedTask) window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedTask]);
 
   const handleDelete = (taskName) => {
     const updatedTasks = tasks.filter((task) => task.name !== taskName);
     setTasks(updatedTasks);
-    setSelectedTask(null); // Close modal if the task is deleted
+    setSelectedTask(null);
   };
 
   return (
-    <div>
-      <div className="navbar">
-        <a href="/" className="nav-btn">Home</a>
-        <a href="/members" className="nav-btn">Members</a>
-        <a href="/activity" className="nav-btn active">Activity</a>
-        <a href="/tasks" className="nav-btn">Tasks</a>
-        <a href="/merge-request" className="nav-btn">Pull Requests</a>
-        <a href="/todo" className="nav-btn">To-Do List</a>
-        <a href="/monitoring" className="nav-btn">Monitoring</a>
-        <a href="/cicd" className="nav-btn">CI/CD</a>
-      </div>
+    <div className="activity-wrapper">
+      <div className="activity-container">
+        <h1 className="activity-title">Activity Dashboard</h1>
+        <p className="activity-subtitle">
+          Select a task to view detailed insights.
+        </p>
 
-      <div className="container">
-        <h1>Activity</h1>
-        <p>Click on a task name to view details.</p>
-
-        <div id="tasksContainer">
+        <div className="tasks-grid">
           {tasks.map((task) => (
             <button
               key={task.name}
               onClick={() => setSelectedTask(task.name)}
-              className="act-btn"
+              className="task-card"
             >
-              {task.name}
+              <span>{task.name}</span>
+              <span className="task-progress">{task.progress}%</span>
             </button>
           ))}
         </div>
 
-        {/* Display task details in a table */}
-        <div className="task-table">
-          <table>
+        <div className="task-table-container">
+          <table className="modern-task-table">
             <thead>
               <tr>
                 <th>Task Name</th>
@@ -135,10 +121,21 @@ const Activity = () => {
                 <tr key={task.name}>
                   <td>{task.name}</td>
                   <td>{task.branches.join(", ")}</td>
-                  <td>{task.progress}%</td>
                   <td>
-                    <button className="btndel" onClick={() => handleDelete(task.name)}>
-                      <i className="fas fa-trash-alt"></i> {/* Trash icon for deletion */}
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{ width: `${task.progress}%` }}
+                      ></div>
+                    </div>
+                    {task.progress}%
+                  </td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(task.name)}
+                    >
+                      <i className="fas fa-trash-alt"></i>
                     </button>
                   </td>
                 </tr>
@@ -148,32 +145,33 @@ const Activity = () => {
         </div>
       </div>
 
-      {/* Modal for Task Details */}
       {selectedTask && (
-        <div className="modal">
+        <div className="modern-modal">
           <div className="modal-content">
-            <h3>
-              Details for {selectedTask}
-              <button className="close-btn" onClick={closeModal}>
-                X
+            <div className="modal-header">
+              <h3>{selectedTask} Details</h3>
+              <button className="modal-close-btn" onClick={closeModal}>
+                <i className="fas fa-times"></i>
               </button>
-            </h3>
-            <div className="task-info">
-              <p>
-                This task involves working on the following branches: {taskStatus?.branches?.join(", ")}.
-                The task is {taskStatus?.status}.
-              </p>
-              <p>
-                The progress for this task is currently at {taskStatus?.progress}%.
-                It is crucial to complete this task for project deadlines.
-              </p>
             </div>
-            <div className="task-status">
-              <p>Status: {taskStatus?.status}</p>
+            <div className="modal-body">
+              <p>
+                Branches: <strong>{taskStatus?.branches?.join(", ")}</strong>
+              </p>
+              <p>
+                Status:{" "}
+                <span
+                  className={`status-${taskStatus?.status
+                    .toLowerCase()
+                    .replace(" ", "-")}`}
+                >
+                  {taskStatus?.status}
+                </span>
+              </p>
               <p>Progress: {taskStatus?.progress}%</p>
-            </div>
-            <div className="task-chart">
-              <canvas ref={chartRef} id="barChart" width="100" height="100"></canvas>
+              <div className="chart-container">
+                <canvas ref={chartRef} id="barChart"></canvas>
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Chart from "chart.js/auto";
-import Navbar from "../components/Navbar";
 
 const Monitoring = () => {
   const [memoryAlloc, setMemoryAlloc] = useState("-");
@@ -102,45 +101,42 @@ const Monitoring = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="container2">
-        <h1>Monitoring</h1>
-        <div id="systemMetrics">
-          <h2>System Sources</h2>
-          <p>
-            Memory Alloc: <span id="memoryAlloc">{memoryAlloc}</span>
-          </p>
-          <p>
-            Active Goroutines: <span id="numGoroutine">{numGoroutine}</span>
-          </p>
-          <p>
-            Last Updated: <span id="timestamp">{timestamp}</span>
-          </p>
-        </div>
-        <div id="logs">
-          <h2>Loglar</h2>
-          <ul id="logsList">
-            {logs.map((log, index) => (
-              <li key={index}>{log}</li>
-            ))}
-          </ul>
-        </div>
-        <div id="deploySection">
-          <h2>Deployment</h2>
-          <button id="deployBtn" className="btn" onClick={handleDeploy}>
-            Deployment Trigger
-          </button>
-          <p id="deployResult">{deployResult}</p>
-        </div>
-        <div id="monitorChartContainer">
-          <canvas
-            id="monitorChart"
-            ref={chartRef}
-            width="400"
-            height="200"
-          ></canvas>
-        </div>
+    <div className="container2">
+      <h1>Monitoring</h1>
+      <div id="systemMetrics">
+        <h2>System Sources</h2>
+        <p>
+          Memory Alloc: <span id="memoryAlloc">{memoryAlloc}</span>
+        </p>
+        <p>
+          Active Goroutines: <span id="numGoroutine">{numGoroutine}</span>
+        </p>
+        <p>
+          Last Updated: <span id="timestamp">{timestamp}</span>
+        </p>
+      </div>
+      <div id="logs">
+        <h2>Loglar</h2>
+        <ul id="logsList">
+          {logs.map((log, index) => (
+            <li key={index}>{log}</li>
+          ))}
+        </ul>
+      </div>
+      <div id="deploySection">
+        <h2>Deployment</h2>
+        <button id="deployBtn" className="btn" onClick={handleDeploy}>
+          Deployment Trigger
+        </button>
+        <p id="deployResult">{deployResult}</p>
+      </div>
+      <div id="monitorChartContainer">
+        <canvas
+          id="monitorChart"
+          ref={chartRef}
+          width="400"
+          height="200"
+        ></canvas>
       </div>
     </div>
   );

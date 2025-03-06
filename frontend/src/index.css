@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 1%;
   padding: 0;
   background: #eef2f7;
@@ -17,7 +17,7 @@ html {
 /* Home Page Style */
 .home-page {
   position: relative;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,59 +77,9 @@ html {
   }
 }
 
-/* Navbar */
-.navbar {
-  background: rgba(30, 58, 138, 0.9);
-  backdrop-filter: blur(10px);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin: 10px;
-}
-
-.nav-btn {
-  color: white;
-  padding: 12px 20px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-  border-radius: 8px;
-  position: relative;
-  margin: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-  width: max-content;
-  min-width: 120px;
-}
-
-.nav-btn::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -5px;
-  width: 0;
-  height: 3px;
-  background: #5f7bd8;
-  transition: width 0.3s ease, left 0.3s ease;
-}
-
-.nav-btn:hover::after, .nav-btn.active::after {
-  width: 100%;
-  left: 0;
-}
-
-.nav-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
 /* Butons */
-.btn, .btnnow {
+.btn,
+.btnnow {
   margin: 0.5%;
   padding: 12px 20px;
   background: rgba(30, 58, 138, 0.9);
@@ -151,7 +101,9 @@ html {
   transition: 0.3s;
 }
 
-.btnsave, .btned, .btnfut {
+.btnsave,
+.btned,
+.btnfut {
   margin: 0.5%;
   padding: 12px 20px;
   background: #109624;
@@ -162,7 +114,9 @@ html {
   transition: 0.3s;
 }
 
-.btndel, .btncls, .btnprev {
+.btndel,
+.btncls,
+.btnprev {
   margin: 0.5%;
   padding: 12px 20px;
   background: #eb2525;
@@ -187,7 +141,9 @@ html {
   margin-right: auto;
 }
 
-.btn:hover, .btnnow:hover, .act-btn:hover {
+.btn:hover,
+.btnnow:hover,
+.act-btn:hover {
   background: #3b62e3;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
@@ -228,14 +184,14 @@ html {
 .task-btn {
   padding: 10px 20px;
   border: none;
-  background-color: #36A2EB;
+  background-color: #36a2eb;
   color: white;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .task-btn:hover {
-  background-color: #1F76D4;
+  background-color: #1f76d4;
 }
 
 .task-table {
@@ -265,9 +221,9 @@ html {
   padding: 10px;
   border-bottom: 2px solid #10182e;
   border-right: 2px solid #10182e;
-  word-wrap: break-word; 
-  overflow-wrap: break-word; 
-  white-space: normal; 
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
   max-width: 200px;
 }
 
@@ -294,7 +250,8 @@ html {
 }
 
 /* Input */
-input, textarea {
+input,
+textarea {
   width: 80%;
   padding: 10px;
   border: 1px solid #bbb;
@@ -305,7 +262,8 @@ input, textarea {
   margin-right: auto;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #2563eb;
   box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
 }
@@ -327,18 +285,20 @@ input:focus, textarea:focus {
 }
 
 .container2 {
-  width: 80%; 
-  max-width: 800px; 
-  margin: 50px auto; 
-  padding: 30px; 
-  background-color: #fff; 
-  border-radius: 10px; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-  text-align: left; 
-  border: 2px solid #2563eb; 
+  width: 80%;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  border: 2px solid #2563eb;
 }
- h1, h2, p {
- text-align: center; 
+h1,
+h2,
+p {
+  text-align: center;
 }
 
 .container2 h1 {
@@ -346,7 +306,6 @@ input:focus, textarea:focus {
   margin-bottom: 20px;
   color: #333;
 }
-
 
 /* Modal for Adding a New User */
 .modal {
@@ -400,7 +359,7 @@ input:focus, textarea:focus {
   font-size: 16px;
 }
 
-.close-btn2{
+.close-btn2 {
   position: relative;
   left: 10%;
   padding: 10px;
@@ -437,7 +396,7 @@ input:focus, textarea:focus {
   text-align: center;
   font-size: 2em;
   margin-bottom: 20px;
-  color: #1e3a8a;  /* Match the navbar color */
+  color: #1e3a8a; /* Match the navbar color */
 }
 
 /* Todo list styles */
@@ -460,12 +419,12 @@ input:focus, textarea:focus {
 }
 
 .todo-item:hover {
-  background-color: #e0e7ff;  /* Light hover effect */
+  background-color: #e0e7ff; /* Light hover effect */
 }
 
 /* Remove task button */
 .remove-task {
-  color: #eb2525;  /* Navy blue (lacivert) color */
+  color: #eb2525; /* Navy blue (lacivert) color */
   font-size: 1.5em;
   font-weight: bold;
   cursor: pointer;
@@ -473,7 +432,7 @@ input:focus, textarea:focus {
 }
 
 .remove-task:hover {
-  color: #005b99;  /* Lighter navy blue on hover */
+  color: #005b99; /* Lighter navy blue on hover */
 }
 
 .completed {
@@ -550,23 +509,22 @@ input:focus, textarea:focus {
 #pipeline {
   display: flex;
   justify-content: center;
-  gap: 20px; 
-  flex-wrap: wrap; 
-  align-items: stretch; 
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: stretch;
   margin-top: 30px;
 }
 
 .pipeline-stage {
   flex: 1;
-  min-width: 250px; 
-  max-width: 300px; 
+  min-width: 250px;
+  max-width: 300px;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
   text-align: center;
   background: #f9f9f9;
 }
-
 
 #pipelineResult {
   margin-top: 20px;
@@ -593,12 +551,12 @@ input:focus, textarea:focus {
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column; 
+    flex-direction: column;
     gap: 10px;
   }
 
   .nav-btn {
-    font-size: 14px; 
-    padding: 8px 15px; 
+    font-size: 14px;
+    padding: 8px 15px;
   }
 }
