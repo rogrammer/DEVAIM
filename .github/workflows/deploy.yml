@@ -27,7 +27,7 @@ jobs:
         working-directory: frontend
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: rogrammer/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: frontend/build
