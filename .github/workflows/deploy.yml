@@ -27,7 +27,7 @@ jobs:
         working-directory: frontend
 
       - name: Deploy to GitHub Pages
-        uses: rogrammer/DEVAIM-action@v4
+        uses: rogrammer/DEVAIM@v4
         with:
           branch: gh-pages
           folder: frontend/build
